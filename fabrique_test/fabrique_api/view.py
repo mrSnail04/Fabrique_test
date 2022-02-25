@@ -42,9 +42,9 @@ class MailingViewSet(viewsets.ModelViewSet):
             return response.Response("Confirm", status=status.HTTP_204_NO_CONTENT)
 
     @action(methods=['patch'], detail=False,
-            url_path='update_mailing/(?P<id_mailing>\d+)')
-    def update_mailing(self, request, *args, **kwargs):
-        old_mailing = get_object_or_404(Client, id=kwargs['id_mailing'])
+            url_path='editing_mailing/(?P<id_mailing>\d+)')
+    def editing_mailing(self, request, *args, **kwargs):
+        old_mailing = get_object_or_404(Mailing, id=kwargs['id_mailing'])
         data_update = request.data
         serializer = MailingSerializer(instance=old_mailing, data=data_update, partial=True)
         if serializer.is_valid(raise_exception=True):
@@ -76,8 +76,8 @@ class ClientViewSet(viewsets.ModelViewSet):
         return response.Response("Confirm", status=status.HTTP_204_NO_CONTENT)
 
     @action(methods=['patch'], detail=False,
-            url_path='update_client/(?P<id_client>\d+)')
-    def update_client(self, request, *args, **kwargs):
+            url_path='editing_client/(?P<id_client>\d+)')
+    def editing_client(self, request, *args, **kwargs):
         old_client = get_object_or_404(Client, id=kwargs['id_client'])
         data_update = request.data
         serializer = ClientSerializer(instance=old_client, data=data_update, partial=True)
